@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: nodejs-2
+  description: NODE JS Application
+  annotations:
+    github.com/project-slug: vanraj-boricha/nodejs-2
+    backstage.io/techdocs-ref: dir:.
+    prometheus.io/rule: 'sum(rate(container_cpu_usage_seconds_total{container="nodejs-2"}[5m]))|CPU Load,container_memory_working_set_bytes{container="nodejs-2"}|Memory Usage,rate(http_requests_total{container="nodejs-2"}[5m])|HTTP Request Rate,rate(http_errors_total{container="nodejs-2"}[5m])|HTTP Error Rate'
+    prometheus.io/alert: 'KubePodCrashLooping'
+spec:
+  type: service
+  owner: development
+  lifecycle: experimental

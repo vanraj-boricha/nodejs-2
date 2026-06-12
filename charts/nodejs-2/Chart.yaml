@@ -1,0 +1,12 @@
+apiVersion: v2
+name: nodejs-2
+description: Node JS APP
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+maintainers:
+  - name: group:default/development
+keywords:
+  - nodejs
+  - express
+  - nodejs-2

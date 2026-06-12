@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-2
+  namespace: dev
+  labels:
+    app: nodejs-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-2
+  template:
+    metadata:
+      labels:
+        app: nodejs-2
+    spec:
+      serviceAccountName: nodejs-2-sa
+      containers:
+        - name: nodejs-2
+          image: 454143665149.dkr.ecr.ap-south-1.amazonaws.com/nodejs-1:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: PORT
+              value: "5000"
+            - name: NODE_ENV
+              value: production
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
